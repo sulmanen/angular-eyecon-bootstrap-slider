@@ -19,7 +19,6 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
             config: '='
         },
         link: function(scope, el, attrs, ctrl) {
-
             scope.$watch('config', function() {
                 effectiveConfig = angular.extend(scope.config, {});
             });
@@ -39,10 +38,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
 
             if (attrs.ngChange) {
                 ctrl.$viewChangeListeners.push(function() {
-
-                    $timeout(function() {
-                        scope.$parent.$eval(attrs.ngChange).call();
-                    });
+                    $timeout(scope.$parent.$eval(attrs.ngChange));
                 });
             }
         }
