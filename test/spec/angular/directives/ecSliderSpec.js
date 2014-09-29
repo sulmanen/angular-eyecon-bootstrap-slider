@@ -11,15 +11,14 @@ describe('ecSlider', function() {
         parentScope.slider = {
             val: 50,
             change: function(){},
-            cfg: {},
-            disabled: false
+            cfg: {}
         };
-
+        parentScope.disabled = false;
         $timeout = _$timeout_;
 
         spyOn(parentScope.slider, 'change');
 
-        el = angular.element('<ec-slider ng-change="slider.change" ng-model="slider.val" config="slider.cfg" ng-disabled="slider.disabled"></ec-slider>');
+        el = angular.element('<ec-slider ng-change="slider.change" ng-model="slider.val" config="slider.cfg" ng-disabled="disabled"></ec-slider>');
         document.body.appendChild(el[0]);
         $compile(el)(parentScope);
         parentScope.$digest();
@@ -43,6 +42,10 @@ describe('ecSlider', function() {
         expect($(el).slider).toBeDefined();
     });
 
+    it('is enabled if not disabled', function() {
+        expect(slider.slider('isEnabled')).toBe(true);
+    });
+
     it('supports view change listeners', function() {
         parentScope.slider.val = 10;
         $timeout.flush();
@@ -54,20 +57,14 @@ describe('ecSlider', function() {
     });
 
     describe('ngDisabled', function() {
-        it('should be enabled when disabled false', function() {
-            expect(slider.slider('isEnabled')).toBe(true);
-        });
 
-        describe('with disabled true', function() {
-            beforeEach(function() {
-                parentScope.slider.disabled = true;
-            });
-
-            it('should be disabled', function() {
-                expect(slider.slider('isEnabled')).toBe(false);
-            });
+        it('should be disabled', function() {
+            parentScope.disabled = true;
+            parentScope.$digest();
+            expect(slider.slider('isEnabled')).toBe(false);
         });
     });
+
 
     describe('scope.$destroy', function() {
         beforeEach(function() {

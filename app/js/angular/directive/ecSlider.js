@@ -48,10 +48,12 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
             }
 
 
-            attrs.$observe('ngDisabled', function(val) {
-                scope.$parent.$eval(val) ? slider.slider('enable') : slider.slider('disable');
+            attrs.$observe(attrs.ngDisabled, function() {
+                var newVal = scope.$parent.$eval(attrs.ngDisabled);
+                if (typeof newVal === 'boolean') {
+                    newVal ? slider.slider('disable') : slider.slider('enable');
+                }
             });
-
 
             scope.$on('$destroy', function() {
                 slider.slider('destroy');
