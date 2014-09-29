@@ -22,17 +22,17 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
             };
         }],
         link: function(scope, el, attrs, ctrl) {
-            scope.$watch('config', function(newConfig) {
-                if (newConfig) {
-                    render(el, newConfig);
-                }
-            });
+           scope.$watch('config', function(newConfig) {
+               if (newConfig) {
+                   render(el, newConfig);
+               }
+           });
 
             attrs.$observe('ngModel', function(val) {
                 var newVal = scope.$parent.$eval(val);
 
                 if(!slider) {
-                    slider = $(el).slider();
+                    slider = $(el).slider(scope.config);
                 }
 
                 if (newVal || newVal === 0) {
@@ -46,6 +46,12 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
                     $timeout(scope.$parent.$eval(attrs.ngChange));
                 });
             }
+
+
+            attrs.$observe('ngDisabled', function(val) {
+                scope.$parent.$eval(val) ? slider.slider('enable') : slider.slider('disable');
+            });
+
 
             scope.$on('$destroy', function() {
                 slider.slider('destroy');

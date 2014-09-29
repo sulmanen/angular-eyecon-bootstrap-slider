@@ -1,7 +1,7 @@
 describe('ecSlider', function() {
     'use strict';
 
-    var el, parentScope, scope, change, $timeout;
+    var el, parentScope, scope, change, $timeout, slider;
 
     beforeEach(module('ecSlider'));
 
@@ -11,17 +11,20 @@ describe('ecSlider', function() {
         parentScope.slider = {
             val: 50,
             change: function(){},
-            cfg: {}
+            cfg: {},
+            disabled: false
         };
 
         $timeout = _$timeout_;
 
         spyOn(parentScope.slider, 'change');
 
-        el = angular.element('<ec-slider ng-change="slider.change" ng-model="slider.val" config="slider.cfg"></ec-slider>');
+        el = angular.element('<ec-slider ng-change="slider.change" ng-model="slider.val" config="slider.cfg" ng-disabled="slider.disabled"></ec-slider>');
+        document.body.appendChild(el[0]);
         $compile(el)(parentScope);
         parentScope.$digest();
         scope = el.isolateScope();
+        slider = scope.ecSlider.get();
     }));
 
     it('exists', function() {
@@ -50,12 +53,24 @@ describe('ecSlider', function() {
         expect($(el).slider('getValue')).toBe(10);
     });
 
-    describe('$destroy', function() {
-        var slider;
+    describe('ngDisabled', function() {
+        it('should be enabled when disabled false', function() {
+            expect(slider.slider('isEnabled')).toBe(true);
+        });
 
+        describe('with disabled true', function() {
+            beforeEach(function() {
+                parentScope.slider.disabled = true;
+            });
+
+            it('should be disabled', function() {
+                expect(slider.slider('isEnabled')).toBe(false);
+            });
+        });
+    });
+
+    describe('scope.$destroy', function() {
         beforeEach(function() {
-            slider = scope.ecSlider.get();
-
             spyOn(slider, 'slider');
             parentScope.$broadcast('$destroy');
             parentScope.$digest();
@@ -65,4 +80,5 @@ describe('ecSlider', function() {
             expect(slider.slider).toHaveBeenCalledWith('destroy');
         });
     });
+
 });
