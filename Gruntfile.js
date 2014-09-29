@@ -19,11 +19,9 @@ module.exports = function (grunt) {
         bower: {
             src: {
                 options: {
-                    targetDir: './app/js/vendor',
+                    targetDir: './app/vendor',
                     // this will strip component name
-                    layout: function () {
-                        return '';
-                    },
+                    layout: 'byComponent',
                     install: false,
                     verbose: false,
                     cleanTargetDir: true,
