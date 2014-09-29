@@ -9,5 +9,5 @@
 npm-debug.log
 *coverage/
 logs
-app/js/vendor
+app/vendor
 test/vendor
