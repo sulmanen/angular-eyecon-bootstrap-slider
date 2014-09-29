@@ -13,7 +13,7 @@ module.exports = function(config) {
       'app/vendor/angular/angular.js',
       'app/js/angular/app.js',
       'app/js/angular/**/*.js',
-      'test/vendor/angular-mocks/angular-mocks.js',
+      'app/vendor/angular-mocks/angular-mocks.js',
       'test/spec/angular/**/*.js'
     ],
 
