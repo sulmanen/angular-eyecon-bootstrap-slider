@@ -1,6 +1,7 @@
 .classpath
 .idea/
 .project
+.tern-port
 .settings/
 *node_modules/
 *.DS_Store
