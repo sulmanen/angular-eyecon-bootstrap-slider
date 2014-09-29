@@ -1,0 +1,13 @@
+.classpath
+.idea/
+.project
+.settings/
+*node_modules/
+*.DS_Store
+*tmp
+*bower_components
+npm-debug.log
+*coverage/
+logs
+app/js/vendor
+test/vendor

@@ -1,0 +1,40 @@
+{
+  "name": "ecSlider",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sulmanen/angular-eyecon-bootstrap-slider.git"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/grunt test",
+    "postinstall": "./node_modules/.bin/bower install"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "load-grunt-tasks": "~0.1.0",
+    "grunt": "~0.4.1",
+    "grunt-karma": "~0.5.0",
+    "grunt-istanbul-coverage": "0.0.1",
+    "grunt-plato": "~0.2.1",
+    "grunt-contrib-connect": "~0.3.0",
+    "karma-script-launcher": "0.0.2",
+    "karma-chrome-launcher": "0.0.2",
+    "karma-firefox-launcher": "0.0.3",
+    "karma-html2js-preprocessor": "0.0.2",
+    "karma-jasmine": "0.0.3",
+    "karma-phantomjs-launcher": "0.0.2",
+    "karma": "~0.9.5",
+    "karma-coverage": "0.0.4",
+    "karma-ng-scenario": "0.0.2",
+    "karma-teamcity-reporter": "0.0.1",
+    "grunt-cli": "~0.1.9",
+    "phantomjs": "~1.9.1-0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-bower-task": "~0.3.4",
+    "bower": "~1.2.8"
+  }
+}

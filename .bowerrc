@@ -1,0 +1,7 @@
+{
+  "directory": "bower_components",
+  "json": "bower.json",
+  "registry": {
+    "register":       "https://bower.herokuapp.com"
+  }
+}
