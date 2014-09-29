@@ -2,6 +2,12 @@ ecSlider
 =========
 directive for [eyecon bootstrap slider](https://github.com/seiyria/bootstrap-slider)
 
+Include the file and import the angular ecSlider angular module.
+
+```javascript
+angular.module('myModule', [ecSlider]);
+```
+
 ```html
         <ec-slider ng-model="myCtrl.val" // value
                    config="myCtrl.sliderConfig" // jquery plugin config object
