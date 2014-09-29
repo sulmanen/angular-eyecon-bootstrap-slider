@@ -1,7 +1,7 @@
 describe('ecSlider', function() {
     'use strict';
 
-    var el, parentScope, scope, change, $timeout, slider;
+    var el, parentScope, scope, $timeout, slider;
 
     beforeEach(module('ecSlider'));
 
