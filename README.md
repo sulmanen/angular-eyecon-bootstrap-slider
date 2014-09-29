@@ -5,7 +5,7 @@ directive for [eyecon bootstrap slider](https://github.com/seiyria/bootstrap-sli
 Include the file and import the angular ecSlider angular module.
 
 ```javascript
-angular.module('myModule', [ecSlider]);
+angular.module('myModule', ['ecSlider']);
 ```
 
 ```html
