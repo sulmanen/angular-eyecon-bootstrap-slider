@@ -14,6 +14,13 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
         scope: {
             config: '='
         },
+        controller: ['$scope', function($scope) {
+            $scope.ecSlider = {
+                get: function() { // visible for testing
+                    return slider;
+                }
+            };
+        }],
         link: function(scope, el, attrs, ctrl) {
             scope.$watch('config', function(newConfig) {
                 if (newConfig) {
@@ -39,6 +46,10 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
                     $timeout(scope.$parent.$eval(attrs.ngChange));
                 });
             }
+
+            scope.$on('$destroy', function() {
+                slider.slider('destroy');
+            });
         }
     };
 }]);

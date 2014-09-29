@@ -32,8 +32,11 @@ describe('ecSlider', function() {
         expect(scope).toBeDefined();
     });
 
-    it('jquery plugin exists', function() {
+    it('has scope namespace', function() {
+        expect(scope.ecSlider).toBeDefined();
+    });
 
+    it('jquery plugin is here', function() {
         expect($(el).slider).toBeDefined();
     });
 
@@ -47,4 +50,19 @@ describe('ecSlider', function() {
         expect($(el).slider('getValue')).toBe(10);
     });
 
+    describe('$destroy', function() {
+        var slider;
+
+        beforeEach(function() {
+            slider = scope.ecSlider.get();
+
+            spyOn(slider, 'slider');
+            parentScope.$broadcast('$destroy');
+            parentScope.$digest();
+        });
+
+        it('calls destroy on bootstrap slider', function() {
+            expect(slider.slider).toHaveBeenCalledWith('destroy');
+        });
+    });
 });
