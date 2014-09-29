@@ -14,7 +14,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
             },
             render = function render(el, config, ctrl) {
                 $timeout(function() {
-                   slider = init(el, config, ctrl);
+                    slider = init(el, config, ctrl);
                 });
             };
 

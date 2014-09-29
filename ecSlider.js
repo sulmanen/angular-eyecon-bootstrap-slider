@@ -8,9 +8,18 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         'use strict';
         var slider,
             effectiveConfig,
-            render = function render(el, config) {
+            init = function init(el, config, ctrl) {
+                var s = el.slider(config);
+                s.on('slide', function(e) {
+                    $timeout(function() {
+                        ctrl.$setViewValue(e.value);
+                    });
+                });
+                return s;
+            },
+            render = function render(el, config, ctrl) {
                 $timeout(function() {
-                    slider = $(el).slider(config);
+                    slider = init(el, config, ctrl);
                 });
             };
 
@@ -32,7 +41,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
             link: function(scope, el, attrs, ctrl) {
                 scope.$watch('config', function(newConfig) {
                     if (newConfig) {
-                        render(el, newConfig);
+                        render(el, newConfig, ctrl);
                     }
                 });
 
@@ -40,7 +49,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                     var newVal = scope.$parent.$eval(val);
 
                     if (!slider) {
-                        slider = $(el).slider(scope.config);
+                        slider = init(el, scope.config, ctrl);
                     }
 
                     if (newVal || newVal === 0) {
