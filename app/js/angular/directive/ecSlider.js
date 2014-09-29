@@ -2,7 +2,6 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
     function($timeout) {
         'use strict';
         var slider,
-            effectiveConfig,
             init = function init(el, config, ctrl) {
                 var s = el.slider(config);
                 s.on('slide', function(e) {
