@@ -8,11 +8,14 @@ describe('ecSlider', function() {
     beforeEach(inject(function($rootScope, $compile, _$timeout_) {
 
         parentScope = $rootScope.$new();
+
         parentScope.slider = {
+            id: 'slider',
             val: 50,
             change: function(){},
             cfg: {}
         };
+
         parentScope.disabled = false;
         $timeout = _$timeout_;
 
@@ -57,7 +60,6 @@ describe('ecSlider', function() {
     });
 
     describe('ngDisabled', function() {
-
         it('should be disabled', function() {
             parentScope.disabled = true;
             parentScope.$digest();
@@ -80,7 +82,7 @@ describe('ecSlider', function() {
 
     describe('slide', function() {
         beforeEach(function() {
-            $('#slider').trigger('slide');
+            slider.trigger({type: 'slide', value: 1});
             $timeout.flush();
         });
 
