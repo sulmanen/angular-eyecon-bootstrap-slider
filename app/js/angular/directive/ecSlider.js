@@ -15,7 +15,6 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
             min: '=',
             max: '=',
             step: '=',
-            value: '@',
             range: '=',
             config: '='
         },
