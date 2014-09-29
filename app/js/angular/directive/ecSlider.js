@@ -2,7 +2,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
     'use strict';
     var slider,
         effectiveConfig,
-        render = function(el, config) {
+        render = function render(el, config) {
             $timeout(function() {
                 slider = $(el).slider(config);
             });
@@ -12,15 +12,13 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout', function($timeout)
         require: 'ngModel',
         restrict: 'E',
         scope: {
-            min: '=',
-            max: '=',
-            step: '=',
-            range: '=',
             config: '='
         },
         link: function(scope, el, attrs, ctrl) {
-            scope.$watch('config', function() {
-                effectiveConfig = angular.extend(scope.config, {});
+            scope.$watch('config', function(newConfig) {
+                if (newConfig) {
+                    render(el, newConfig);
+                }
             });
 
             attrs.$observe('ngModel', function(val) {

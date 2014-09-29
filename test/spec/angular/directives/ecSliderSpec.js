@@ -42,4 +42,9 @@ describe('ecSlider', function() {
         $timeout.flush();
         expect(parentScope.slider.change).toHaveBeenCalled();
     });
+
+    it('sets initial value correctly', function() {
+        expect($(el).slider('getValue')).toBe(10);
+    });
+
 });
