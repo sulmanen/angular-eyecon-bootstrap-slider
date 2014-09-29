@@ -78,4 +78,14 @@ describe('ecSlider', function() {
         });
     });
 
+    describe('slide', function() {
+        beforeEach(function() {
+            $('#slider').trigger('slide');
+            $timeout.flush();
+        });
+
+        it('should update ngModel to 1', function() {
+            expect(parentScope.slider.val).toBe(1);
+        });
+    });
 });
