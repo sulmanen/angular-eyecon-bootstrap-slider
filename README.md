@@ -23,4 +23,4 @@ angular.module('myModule', ['ecSlider']);
 
 The config options are those passed directly to the slider [jquery plugin](http://seiyria.github.io/bootstrap-slider/). The directive will re-init if the config changes.
 
-Destruction of scope will call slider('destroy')
+Destruction of scope will call slider('destroy').
