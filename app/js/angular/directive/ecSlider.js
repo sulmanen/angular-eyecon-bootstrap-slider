@@ -1,38 +1,35 @@
 angular.module('ecSlider').directive('ecSlider', ['$timeout',
     function($timeout) {
         'use strict';
-        var slider,
-            init = function init(el, config, ctrl) {
-                var s = el.slider(config);
-                s.on('slide', function(e) {
-                    $timeout(function() {
-                        ctrl.$setViewValue(e.value);
-                    });
-                });
-                return s;
-            },
-            render = function render(el, config, ctrl) {
-                $timeout(function() {
-                    slider = init(el, config, ctrl);
-                });
-            };
-
         return {
             require: 'ngModel',
             restrict: 'E',
             scope: {
                 config: '='
             },
-            controller: ['$scope',
-                function($scope) {
-                    $scope.ecSlider = {
-                        get: function() { // visible for testing
-                            return slider;
-                        }
-                    };
-                }
-            ],
             link: function(scope, el, attrs, ctrl) {
+                var slider,
+                    init = function init(el, config, ctrl) {
+                        var s = el.slider(config);
+                        s.on('slide', function(e) {
+                            $timeout(function() {
+                                ctrl.$setViewValue(e.value);
+                            });
+                        });
+                        return s;
+                    },
+                    render = function render(el, config, ctrl) {
+                        $timeout(function() {
+                            slider = init(el, config, ctrl);
+                        });
+                    };
+
+                scope.ecSlider = {
+                    get: function() { // visible for testing
+                        return slider;
+                    }
+                };
+
                 scope.$watch('config', function(newConfig) {
                     if (newConfig) {
                         render(el, newConfig, ctrl);
