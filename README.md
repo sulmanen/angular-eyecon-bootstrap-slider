@@ -1,5 +1,6 @@
 ecSlider
 =========
+[![Build Status](https://travis-ci.org/sulmanen/angular-eyecon-bootstrap-slider.png?branch=master)](https://travis-ci.org/sulmanen/angular-eyecon-bootstrap-slider)
 directive for [eyecon bootstrap slider](https://github.com/seiyria/bootstrap-slider)
 
 Include the file and import the angular ecSlider angular module.
