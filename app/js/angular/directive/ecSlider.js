@@ -45,7 +45,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
 
                     if (newVal || newVal === 0) {
                         slider.slider('setValue', newVal, false); // no event
-                        ctrl.$setViewValue(newVal);
+
                     }
                 });
 
