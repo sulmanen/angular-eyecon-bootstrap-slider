@@ -1,19 +1,17 @@
 describe('ecSlider', function() {
     'use strict';
 
-    var el, parentScope, scope, $timeout, slider;
+    var el, parentScope, scope, $timeout, slider, sliderTwo, scopeTwo, elTwo;
 
     beforeEach(module('ecSlider'));
 
     beforeEach(inject(function($rootScope, $compile, _$timeout_) {
-
         parentScope = $rootScope.$new();
-
         parentScope.slider = {
             id: 'slider',
-            val: 50,
+            val: 0.5,
             change: function(){},
-            cfg: {}
+            cfg: {min: 0.01, max: 1.0, step: 0.01}
         };
 
         parentScope.disabled = false;
@@ -21,16 +19,21 @@ describe('ecSlider', function() {
 
         spyOn(parentScope.slider, 'change');
 
-        el = angular.element('<ec-slider ng-change="slider.change" ng-model="slider.val" config="slider.cfg" ng-disabled="disabled"></ec-slider>');
+        el = angular.element('<ec-slider ng-change="slider.change()" ng-model="slider.val" config="slider.cfg" ng-disabled="disabled"></ec-slider>');
         document.body.appendChild(el[0]);
         $compile(el)(parentScope);
         parentScope.$digest();
+        $timeout.flush();
         scope = el.isolateScope();
         slider = scope.ecSlider.get();
     }));
 
     it('exists', function() {
         expect(el).toBeDefined();
+    });
+
+    it('has been init', function(){
+        expect(slider).toBeDefined();
     });
 
     it('has isolate scope', function() {
@@ -50,13 +53,13 @@ describe('ecSlider', function() {
     });
 
     it('supports view change listeners', function() {
-        parentScope.slider.val = 10;
-        $timeout.flush();
+        scope.ecSlider.getCtrl().$setViewValue(0.2);
+
         expect(parentScope.slider.change).toHaveBeenCalled();
     });
 
     it('sets initial value correctly', function() {
-        expect($(el).slider('getValue')).toBe(10);
+        expect(slider.slider('getValue')).toBe(0.5);
     });
 
     describe('ngDisabled', function() {
@@ -88,6 +91,14 @@ describe('ecSlider', function() {
 
         it('should update ngModel to 1', function() {
             expect(parentScope.slider.val).toBe(1);
+        });
+    });
+
+    describe('data binding', function() {
+        it('updates slider value on update of ngModel', function() {
+            parentScope.slider.val = 0.1;
+            parentScope.$apply();
+            expect(slider.slider('getValue')).toBe(parentScope.slider.val);
         });
     });
 });
