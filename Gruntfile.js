@@ -119,7 +119,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['clean:all', 'bower', 'lint', 'test', 'concat']);
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('unit', ['clean:coverage', 'karma:unit']);
-    grunt.registerTask('test', ['lint', 'unit']);
+    grunt.registerTask('test', ['bower','lint', 'unit']);
     grunt.registerTask('cover', ['coverage']);
     grunt.registerTask('report', ['plato']);
     grunt.registerTask('pre-commit', ['test', 'report']);
