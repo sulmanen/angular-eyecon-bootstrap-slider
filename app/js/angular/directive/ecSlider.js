@@ -52,7 +52,9 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
 
                 if (attrs.ngChange) {
                     ctrl.$viewChangeListeners.push(function() {
-                        scope.$parent.$apply(attrs.ngChange);
+                        $timeout(function() {
+                            scope.$parent.$apply(attrs.ngChange);
+                        });
                     });
                 }
 
