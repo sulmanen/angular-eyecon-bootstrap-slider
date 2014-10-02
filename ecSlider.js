@@ -16,7 +16,22 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
             },
             link: function(scope, el, attrs, ctrl) {
                 var slider,
-                    isArray = function(a) {
+                    sanitize = function sanitize(newVal) {
+                        if (isArray(newVal)) {
+                            var i;
+                            for (i = 0; i < newVal.length; i++) {
+                                if (typeof newVal[i] === 'string') {
+                                    newVal[i] = parseInt(newVal[i], 10);
+                                }
+                            }
+                        } else {
+                            if (typeof newVal === 'string') {
+                                newVal = parseInt(newVal, 10);
+                            }
+                        }
+                        return newVal;
+                    },
+                    isArray = function isArray(a) {
                         if (Object.prototype.toString.call(a) === '[object Array]') {
                             return true;
                         }
@@ -51,7 +66,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                                 var newVal = e.value;
                                 if((newVal || newVal === 0) &&
                                    inRange(newVal, scope.config)) {
-                                    ctrl.$setViewValue(e.value);
+                                    ctrl.$setViewValue(newVal);
                                     $timeout(function() {
                                         scope.$digest();
                                     });
@@ -85,7 +100,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                 }, true);
 
                 scope.$watch('ngModel', function() {
-                    var newVal = scope.ngModel;
+                    var newVal = sanitize(scope.ngModel);
 
                     if (slider &&
                         (newVal || newVal === 0) &&
