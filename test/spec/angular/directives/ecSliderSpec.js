@@ -11,7 +11,7 @@ describe('ecSlider', function() {
             id: 'slider',
             val: 0.5,
             change: function(){},
-            cfg: {min: 0.01, max: 1.0, step: 0.01}
+            cfg: { min: 0.01, max: 1.0, step: 0.01 }
         };
 
         parentScope.disabled = false;
@@ -70,6 +70,20 @@ describe('ecSlider', function() {
         });
     });
 
+    describe('update slider on config change', function() {
+
+        var newMin = 0.3;
+
+        beforeEach(function() {
+            parentScope.slider.cfg.min = newMin;
+            parentScope.$digest();
+            $timeout.flush();
+        });
+
+        it('updates slider min', function() {
+            expect(slider.slider('getAttribute', 'min')).toBe(newMin);
+        });
+    });
 
     describe('scope.$destroy', function() {
         beforeEach(function() {
