@@ -8,6 +8,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         'use strict';
         return {
             require: 'ngModel',
+            replace: true,
             restrict: 'E',
             scope: {
                 config: '=',
@@ -16,13 +17,20 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
             link: function(scope, el, attrs, ctrl) {
                 var slider,
                     init = function init(el, config, ctrl, scope) {
-                        var s = el.slider(config);
-                        s.on('slide', function(e) {
-                            ctrl.$setViewValue(e.value);
-                            $timeout(function() {
-                                scope.$digest();
+                        var s;
+                        if (config &&
+                            (config.min || config.min === 0) &&
+                            (config.max || config.max === 0) &&
+                            (config.value || config.value === 0)) {
+
+                            s = el.slider(config);
+                            s.on('slide', function(e) {
+                                ctrl.$setViewValue(e.value);
+                                $timeout(function() {
+                                    scope.$digest();
+                                });
                             });
-                        });
+                        }
                         return s;
                     },
                     render = function render(el, config, ctrl) {
