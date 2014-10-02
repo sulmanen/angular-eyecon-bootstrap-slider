@@ -11,6 +11,21 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
             },
             link: function(scope, el, attrs, ctrl) {
                 var slider,
+                    roundToNextStep = function roundToNextStep(newVal, config) {
+                        if (isArray(newVal)) {
+                            var i;
+                            for (i = 0; i < newVal.length; i++) {
+                                if (config && config.step && config.step >= 1) {
+                                    newVal[i] = Math.round(newVal[i]);
+                                }
+                            }
+                        } else {
+                            if (config && config.step && config.step >= 1) {
+                                newVal = Math.round(newVal);
+                            }
+                        }
+                        return newVal;
+                    },
                     sanitize = function sanitize(newVal) {
                         if (isArray(newVal)) {
                             var i;
@@ -95,7 +110,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                 }, true);
 
                 scope.$watch('ngModel', function() {
-                    var newVal = sanitize(scope.ngModel);
+                    var newVal = roundToNextStep(sanitize(scope.ngModel), scope.config);
 
                     if (slider &&
                         (newVal || newVal === 0) &&
