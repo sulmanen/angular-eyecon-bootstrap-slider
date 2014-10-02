@@ -43,10 +43,14 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
 
                             s = el.slider(config);
                             s.on('slide', function(e) {
-                                ctrl.$setViewValue(e.value);
-                                $timeout(function() {
-                                    scope.$digest();
-                                });
+                                var newVal = e.value;
+                                if((newVal || newVal === 0) &&
+                                   inRange(newVal, scope.config)) {
+                                    ctrl.$setViewValue(e.value);
+                                    $timeout(function() {
+                                        scope.$digest();
+                                    });
+                                }
                             });
                         }
                         return s;
