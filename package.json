@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/sulmanen/angular-eyecon-bootstrap-slider.git"
   },
-  "version": "0.1.6",
+  "version": "0.1.7",
   "engines": {
     "node": ">= 0.8.0"
   },
