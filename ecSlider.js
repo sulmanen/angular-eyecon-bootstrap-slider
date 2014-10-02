@@ -41,12 +41,13 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                 };
 
                 scope.$watch('config', function() {
+
                     var newConfig = scope.config;
                     if (newConfig) {
                         newConfig.value = scope.ngModel;
                         render(el, newConfig, ctrl);
                     }
-                });
+                }, true);
 
                 scope.$watch('ngModel', function() {
                     var newVal = scope.ngModel;
