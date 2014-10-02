@@ -11,6 +11,29 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
             },
             link: function(scope, el, attrs, ctrl) {
                 var slider,
+                    isArray = function(a) {
+                        if (Object.prototype.toString.call(a) === '[object Array]') {
+                            return true;
+                        }
+                        return false;
+                    },
+                    allInBetween = function allInBetween(newVal, config) {
+                        var i;
+                        for (i = 0; i < newVal.length; i++) {
+                            if (!inBetween(newVal[i], config)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    },
+                    inBetween = function inBetween(newVal, config) {
+                        return (newVal >= config.min) &&
+                            (newVal <= config.max);
+                    },
+                    inRange = function hasUnderflow(newVal, config) {
+                        return (isArray(newVal) ? allInBetween(newVal, config) : inBetween(newVal, config));
+
+                    },
                     init = function init(el, config, ctrl, scope) {
                         var s;
                         if (config &&
@@ -54,10 +77,13 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
 
                 scope.$watch('ngModel', function() {
                     var newVal = scope.ngModel;
-                    if (slider && (newVal || newVal === 0)) {
+
+                    if (slider &&
+                        (newVal || newVal === 0) &&
+                        inRange(newVal, scope.config)) {
                         slider.slider('setValue', newVal, false); // no event
                     }
-                });
+                }, true);
 
                 if (attrs.ngChange) {
                     ctrl.$viewChangeListeners.push(function() {
