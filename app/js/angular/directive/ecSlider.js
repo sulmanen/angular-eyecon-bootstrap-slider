@@ -43,10 +43,10 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
 
                             s = el.slider(config);
                             s.on('slide', function(e) {
-                                var newVal = e.value;
+                                var newVal = (typeof e.value === 'string' ? parseInt(e.value, 10): e.value) ;
                                 if((newVal || newVal === 0) &&
                                    inRange(newVal, scope.config)) {
-                                    ctrl.$setViewValue(e.value);
+                                    ctrl.$setViewValue(newVal);
                                     $timeout(function() {
                                         scope.$digest();
                                     });
