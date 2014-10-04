@@ -8,9 +8,7 @@ describe('ecSlider', function() {
     beforeEach(inject(function($rootScope, $compile, _$timeout_){
         parentScope = $rootScope.$new();
         parentScope.slider = {
-            id: 'slider',
             val: [0.1, 0.9],
-            change: function(){},
             cfg: {
                 min: 0,
                 max: 1.0,
@@ -20,12 +18,9 @@ describe('ecSlider', function() {
             }
         };
 
-        parentScope.disabled = false;
         $timeout = _$timeout_;
 
-        spyOn(parentScope.slider, 'change');
-
-        el = angular.element('<ec-slider ng-change="slider.change()" ng-model="slider.val" config="slider.cfg" ng-disabled="disabled"></ec-slider>');
+        el = angular.element('<ec-slider ng-model="slider.val" config="slider.cfg"></ec-slider>');
         document.body.appendChild(el[0]);
         $compile(el)(parentScope);
         parentScope.$digest();
