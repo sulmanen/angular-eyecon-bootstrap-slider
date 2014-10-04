@@ -22,6 +22,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         function isArray(a) {
             return (Object.prototype.toString.call(a) === '[object Array]' ? true : false);
         }
+
         function allInBetween(newVal, config) {
             var i;
             for (i = 0; i < newVal.length; i++) {
@@ -75,7 +76,8 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
             restrict: 'E',
             scope: {
                 config: '=',
-                ngModel: '='
+                ngModel: '=',
+                ngDisabled: '='
             },
             link: function(scope, el, attrs, ctrl) {
                 var slider,
@@ -120,8 +122,8 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                     });
                 }
 
-                attrs.$observe(attrs.ngDisabled, function() {
-                    var newVal = scope.$parent.$eval(attrs.ngDisabled);
+                scope.$watch('ngDisabled', function() {
+                    var newVal = scope.ngDisabled;
                     if (slider && typeof newVal === 'boolean') {
                         if (newVal) {
                             slider.slider('disable');
