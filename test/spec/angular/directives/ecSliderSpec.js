@@ -111,7 +111,7 @@ describe('ecSlider', function() {
     describe('data binding', function() {
         it('updates slider value on update of ngModel', function() {
             parentScope.slider.val = 0.1;
-            parentScope.$apply();
+            parentScope.$digest();
             expect(slider.slider('getValue')).toBe(parentScope.slider.val);
         });
     });
