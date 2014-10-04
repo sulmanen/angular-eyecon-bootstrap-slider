@@ -45,7 +45,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                         return (newVal >= config.min) &&
                             (newVal <= config.max);
                     },
-                    inRange = function hasUnderflow(newVal, config) {
+                    inRange = function inRange(newVal, config) {
                         return (isArray(newVal) ? allInBetween(newVal, config) : inBetween(newVal, config));
 
                     },
