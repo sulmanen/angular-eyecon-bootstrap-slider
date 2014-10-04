@@ -114,5 +114,15 @@ describe('ecSlider', function() {
             parentScope.$digest();
             expect(slider.slider('getValue')).toBe(parentScope.slider.val);
         });
+
+        describe('dont attempt update if not in range', function() {
+            it('below min', function() {
+                parentScope.slider.val = -0.1;
+                parentScope.$digest();
+                expect(slider.slider('getValue')).not.toBe(parentScope.slider.val);
+            });
+        });
     });
+
+
 });
