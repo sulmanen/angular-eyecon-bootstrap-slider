@@ -20,10 +20,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function isArray(a) {
-            if (Object.prototype.toString.call(a) === '[object Array]') {
-                return true;
-            }
-            return false;
+            return (Object.prototype.toString.call(a) === '[object Array]' ? true : false);
         }
         function allInBetween(newVal, config) {
             var i;
@@ -57,10 +54,11 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                 isDefined(config.value)) {
 
                 s = el.slider(config);
+
                 s.on('slide', function(e) {
                     var newVal = e.value;
-                    if(isDefined(newVal) &&
-                       inRange(newVal, scope.config)) {
+                    if (isDefined(newVal) &&
+                        inRange(newVal, scope.config)) {
                         ctrl.$setViewValue(newVal);
                         $timeout(function() {
                             scope.$digest();
@@ -108,7 +106,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                     var newVal = sanitize(scope.ngModel);
 
                     if (slider &&
-                        (newVal || newVal === 0) &&
+                        isDefined(newVal) &&
                         inRange(newVal, scope.config)) {
                         slider.slider('setValue', newVal, false); // no event
                     }
@@ -124,7 +122,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
 
                 attrs.$observe(attrs.ngDisabled, function() {
                     var newVal = scope.$parent.$eval(attrs.ngDisabled);
-                    if (typeof newVal === 'boolean' && slider) {
+                    if (slider && typeof newVal === 'boolean') {
                         if (newVal) {
                             slider.slider('disable');
                         } else {
@@ -134,7 +132,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                 });
 
                 scope.$on('$destroy', function() {
-                    if(slider) {
+                    if (slider) {
                         slider.slider('destroy');
                     }
                 });
