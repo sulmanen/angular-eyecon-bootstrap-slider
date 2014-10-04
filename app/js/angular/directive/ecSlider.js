@@ -3,20 +3,12 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         'use strict';
 
         function sanitize(newVal) {
-            var i;
-            if (isArray(newVal)) {
+            return (isArray(newVal) ? newVal.map(maybeSanitize) : maybeSanitize(newVal));
+        }
 
-                newVal = newVal.map(function(val) {
-                    return (typeof val === 'string' ?
+        function maybeSanitize(val) {
+            return (typeof val === 'string' ?
                             parseFloat(val) : val);
-                });
-            } else {
-                if (typeof newVal === 'string') {
-                    newVal = parseFloat(newVal);
-                }
-            }
-
-            return newVal;
         }
 
         function isArray(a) {
@@ -42,7 +34,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function isDefined(val) {
-            return (val || val === 0);
+            return val != null;
         }
 
         function init(el, config, ctrl, scope) {
