@@ -7,8 +7,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function maybeSanitize(val) {
-            return (typeof val === 'string' ?
-                            parseFloat(val) : val);
+            return (typeof val === 'string' ? parseFloat(val) : val);
         }
 
         function isArray(a) {
