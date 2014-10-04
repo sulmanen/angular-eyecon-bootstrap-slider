@@ -111,12 +111,12 @@ describe('ecSlider', function() {
     describe('data binding', function() {
         _.forEach([
             {
-                msg: 'dont attempt update if val under range',
+                msg: 'dont update if val under range',
                 val: -0.1,
                 expected: 0.5
             },
             {
-                msg: 'dont attempt update if val under range',
+                msg: 'dont update update if val under range',
                 val: 2,
                 expected: 0.5
             },
@@ -124,6 +124,11 @@ describe('ecSlider', function() {
                 msg: 'updates slider value on update of ngModel',
                 val: 0.1,
                 expected: 0.1
+            },
+            {
+                msg: 'update slider value from string value',
+                val: '0.6',
+                expected: 0.6
             }
         ], function(test) {
             it(test.msg, function() {
@@ -132,5 +137,35 @@ describe('ecSlider', function() {
                 expect(slider.slider('getValue')).toBe(test.expected);
             });
         });
+        describe('data binding', function() {
+            _.forEach([
+                {
+                    msg: 'dont update if val under range',
+                    val: -0.1,
+                    expected: 0.5
+                },
+                {
+                    msg: 'dont update update if val under range',
+                    val: 2,
+                    expected: 0.5
+                },
+                {
+                    msg: 'updates slider value on update of ngModel',
+                    val: 0.1,
+                    expected: 0.1
+                },
+                {
+                    msg: 'update slider value from string value',
+                    val: '0.6',
+                    expected: 0.6
+                }
+            ], function(test) {
+                it(test.msg, function() {
+                    parentScope.slider.val = test.val;
+                    parentScope.$digest();
+                    expect(slider.slider('getValue')).toBe(test.expected);
+                });
+            });
+        });
     });
-});
+ });

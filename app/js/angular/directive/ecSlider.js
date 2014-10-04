@@ -16,14 +16,15 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                         if (isArray(newVal)) {
                             for (i = 0; i < newVal.length; i++) {
                                 if (typeof newVal[i] === 'string') {
-                                    newVal[i] = parseInt(newVal[i], 10);
+                                    newVal[i] = parseFloat(newVal[i]);
                                 }
                             }
                         } else {
                             if (typeof newVal === 'string') {
-                                newVal = parseInt(newVal, 10);
+                                newVal = parseFloat(newVal);
                             }
                         }
+
                         return newVal;
                     },
                     isArray = function isArray(a) {
