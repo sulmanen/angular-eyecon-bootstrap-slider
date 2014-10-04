@@ -50,17 +50,20 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                         return (isArray(newVal) ? allInBetween(newVal, config) : inBetween(newVal, config));
 
                     },
+                    isDefined = function isDefined(val) {
+                        return (val || val === 0);
+                    },
                     init = function init(el, config, ctrl, scope) {
                         var s;
                         if (config &&
-                            (config.min || config.min === 0) &&
-                            (config.max || config.max === 0) &&
-                            (config.value || config.value === 0)) {
+                            isDefined(config.min) &&
+                            isDefined(config.max) &&
+                            isDefined(config.value)) {
 
                             s = el.slider(config);
                             s.on('slide', function(e) {
                                 var newVal = e.value;
-                                if((newVal || newVal === 0) &&
+                                if(isDefined(newVal) &&
                                    inRange(newVal, scope.config)) {
                                     ctrl.$setViewValue(newVal);
                                     $timeout(function() {
@@ -87,10 +90,9 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                 };
 
                 scope.$watch('config', function() {
-
                     var newConfig = scope.config;
                     if (newConfig) {
-                        newConfig.value = scope.ngModel;
+                        newConfig.value = sanitize(scope.ngModel);
                         render(el, newConfig, ctrl);
                     }
                 }, true);

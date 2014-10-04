@@ -15,8 +15,8 @@ describe('ecSlider', function() {
                 min: 0,
                 max: 1.0,
                 step: 0.01,
-                value: [0.1, 0.9],
-                range: true
+                range: true,
+                value: [0.1, 0.9]
             }
         };
 
