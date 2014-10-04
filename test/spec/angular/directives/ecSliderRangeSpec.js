@@ -1,4 +1,4 @@
-describe('ecSlider', function() {
+describe('ecSlider in range mode', function() {
     'use strict';
 
     var el, parentScope, scope, $timeout, slider;
