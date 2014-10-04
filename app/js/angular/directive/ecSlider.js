@@ -114,11 +114,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                 scope.$watch('ngDisabled', function() {
                     var newVal = scope.ngDisabled;
                     if (slider && newVal != null) {
-                        if (newVal) {
-                            slider.slider('disable');
-                        } else {
-                            slider.slider('enable');
-                        }
+                        slider.slider((newVal ? 'disable': 'enable'));
                     }
                 });
 

@@ -59,6 +59,7 @@ describe('ecSlider in range mode', function() {
             it(test.msg, function() {
                 parentScope.slider.val = test.val;
                 parentScope.$digest();
+
                 expect(slider.slider('getAttribute', 'value')).toEqual(test.expected);
             });
         });

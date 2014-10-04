@@ -8,20 +8,11 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         'use strict';
 
         function sanitize(newVal) {
-            var i;
-            if (isArray(newVal)) {
-                for (i = 0; i < newVal.length; i++) {
-                    if (typeof newVal[i] === 'string') {
-                        newVal[i] = parseFloat(newVal[i]);
-                    }
-                }
-            } else {
-                if (typeof newVal === 'string') {
-                    newVal = parseFloat(newVal);
-                }
-            }
+            return (isArray(newVal) ? newVal.map(maybeSanitize) : maybeSanitize(newVal));
+        }
 
-            return newVal;
+        function maybeSanitize(val) {
+            return (typeof val === 'string' ? parseFloat(val) : val);
         }
 
         function isArray(a) {
@@ -29,13 +20,11 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function allInBetween(newVal, config) {
-            var i;
-            for (i = 0; i < newVal.length; i++) {
-                if (!inBetween(newVal[i], config)) {
-                    return false;
-                }
-            }
-            return true;
+            return newVal.map(function(val) {
+                return inBetween(val, config);
+            }).filter(function(val){
+                return val === false;
+            }).length === 0;
         }
 
         function inBetween(newVal, config) {
@@ -49,7 +38,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function isDefined(val) {
-            return (val || val === 0);
+            return val != null;
         }
 
         function init(el, config, ctrl, scope) {
@@ -115,6 +104,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                     if (slider &&
                         isDefined(newVal) &&
                         inRange(newVal, scope.config)) {
+
                         slider.slider('setValue', newVal, false); // no event
                     }
                 }, true);
@@ -129,12 +119,8 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
 
                 scope.$watch('ngDisabled', function() {
                     var newVal = scope.ngDisabled;
-                    if (slider && typeof newVal === 'boolean') {
-                        if (newVal) {
-                            slider.slider('disable');
-                        } else {
-                            slider.slider('enable');
-                        }
+                    if (slider && newVal != null) {
+                        slider.slider((newVal ? 'disable': 'enable'));
                     }
                 });
 
