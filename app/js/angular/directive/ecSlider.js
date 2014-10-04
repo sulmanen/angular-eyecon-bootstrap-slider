@@ -5,11 +5,11 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         function sanitize(newVal) {
             var i;
             if (isArray(newVal)) {
-                for (i = 0; i < newVal.length; i++) {
-                    if (typeof newVal[i] === 'string') {
-                        newVal[i] = parseFloat(newVal[i]);
-                    }
-                }
+
+                newVal = newVal.map(function(val) {
+                    return (typeof val === 'string' ?
+                            parseFloat(val) : val);
+                });
             } else {
                 if (typeof newVal === 'string') {
                     newVal = parseFloat(newVal);
@@ -24,13 +24,11 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function allInBetween(newVal, config) {
-            var i;
-            for (i = 0; i < newVal.length; i++) {
-                if (!inBetween(newVal[i], config)) {
-                    return false;
-                }
-            }
-            return true;
+            return newVal.map(function(val) {
+                return inBetween(val, config);
+            }).filter(function(val){
+                return val === false;
+            }).length === 0;
         }
 
         function inBetween(newVal, config) {
