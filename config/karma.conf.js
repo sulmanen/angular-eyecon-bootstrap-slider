@@ -10,7 +10,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'app/vendor/jquery/jquery.js',
+      'app/vendor/lodash/lodash.compat.js',
+       'app/vendor/jquery/jquery.js',
       'app/vendor/seiyria-bootstrap-slider/bootstrap-slider.js',
       'app/vendor/angular/angular.js',
       'app/js/angular/app.js',
