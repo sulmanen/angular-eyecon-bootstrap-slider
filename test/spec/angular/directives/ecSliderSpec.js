@@ -137,5 +137,12 @@ describe('ecSlider', function() {
                 expect(slider.slider('getValue')).toBe(test.expected);
             });
         });
+        it('slider get correct value set when value changes again', function() {
+            parentScope.slider.val = 0.3;
+            parentScope.$digest();
+            parentScope.slider.val = 0.5;
+            parentScope.$digest();
+            expect(slider.slider('getValue')).toBe(0.5);
+        });
     });
 });

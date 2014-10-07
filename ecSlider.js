@@ -46,8 +46,8 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
             if (config &&
                 isDefined(config.min) &&
                 isDefined(config.max) &&
-                isDefined(config.value)) {
-
+                isDefined(scope.ngModel)) {
+                config.value = sanitize(scope.ngModel);
                 s = el.slider(config);
 
                 s.on('slide', function(e) {
@@ -93,7 +93,6 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                 scope.$watch('config', function() {
                     var newConfig = scope.config;
                     if (newConfig) {
-                        newConfig.value = sanitize(scope.ngModel);
                         render(el, newConfig, ctrl);
                     }
                 }, true);
