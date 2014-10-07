@@ -37,13 +37,14 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function init(el, config, ctrl, scope) {
-            var s;
+            var s, confCopy;
             if (config &&
                 isDefined(config.min) &&
                 isDefined(config.max) &&
                 isDefined(scope.ngModel)) {
-                config.value = sanitize(scope.ngModel);
-                s = el.slider(config);
+                confCopy = angular.copy(config);
+                confCopy.value = sanitize(scope.ngModel);
+                s = el.slider(confCopy);
 
                 s.on('slide', function(e) {
                     var newVal = e.value;
