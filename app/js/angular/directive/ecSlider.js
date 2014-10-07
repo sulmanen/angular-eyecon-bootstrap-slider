@@ -11,7 +11,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function isArray(a) {
-            return (Object.prototype.toString.call(a) === '[object Array]' ? true : false);
+            return angular.isArray(a);
         }
 
         function allInBetween(newVal, config) {
@@ -99,6 +99,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
                     if (slider &&
                         isDefined(newVal) &&
                         inRange(newVal, scope.config)) {
+
                         slider.slider('setValue', newVal, false); // no event
                     }
                 }, true);

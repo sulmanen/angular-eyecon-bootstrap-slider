@@ -16,7 +16,7 @@ angular.module('ecSlider').directive('ecSlider', ['$timeout',
         }
 
         function isArray(a) {
-            return (Object.prototype.toString.call(a) === '[object Array]' ? true : false);
+            return angular.isArray(a);
         }
 
         function allInBetween(newVal, config) {
